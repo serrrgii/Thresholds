@@ -18,7 +18,10 @@
 		558B3E8B1836230E00238312 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558B3E701836230E00238312 /* Foundation.framework */; };
 		558B3E8C1836230E00238312 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558B3E741836230E00238312 /* UIKit.framework */; };
 		558B3E941836230E00238312 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 558B3E921836230E00238312 /* InfoPlist.strings */; };
-		558B3E961836230E00238312 /* ThresholdsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B3E951836230E00238312 /* ThresholdsTests.m */; };
+		558B3EA31836268000238312 /* SRGThreshold.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B3EA01836268000238312 /* SRGThreshold.m */; };
+		558B3EA41836268000238312 /* SRGThresholdRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B3EA21836268000238312 /* SRGThresholdRule.m */; };
+		558B3EAC1836281200238312 /* SRGThresholdsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B3EAB1836281200238312 /* SRGThresholdsTests.m */; };
+		675B5739C6C547A08F56C825 /* libPods-ThresholdsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C87074B99194F179C58D9A0 /* libPods-ThresholdsTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C87074B99194F179C58D9A0 /* libPods-ThresholdsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ThresholdsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		558B3E6D1836230E00238312 /* Thresholds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Thresholds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		558B3E701836230E00238312 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		558B3E721836230E00238312 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -47,7 +51,12 @@
 		558B3E891836230E00238312 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		558B3E911836230E00238312 /* ThresholdsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ThresholdsTests-Info.plist"; sourceTree = "<group>"; };
 		558B3E931836230E00238312 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		558B3E951836230E00238312 /* ThresholdsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThresholdsTests.m; sourceTree = "<group>"; };
+		558B3E9F1836268000238312 /* SRGThreshold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGThreshold.h; sourceTree = "<group>"; };
+		558B3EA01836268000238312 /* SRGThreshold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGThreshold.m; sourceTree = "<group>"; };
+		558B3EA11836268000238312 /* SRGThresholdRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGThresholdRule.h; sourceTree = "<group>"; };
+		558B3EA21836268000238312 /* SRGThresholdRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGThresholdRule.m; sourceTree = "<group>"; };
+		558B3EAB1836281200238312 /* SRGThresholdsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGThresholdsTests.m; sourceTree = "<group>"; };
+		8584A40AE8A541978BB51BBA /* Pods-ThresholdsTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThresholdsTests.xcconfig"; path = "Pods/Pods-ThresholdsTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +77,7 @@
 				558B3E8A1836230E00238312 /* XCTest.framework in Frameworks */,
 				558B3E8C1836230E00238312 /* UIKit.framework in Frameworks */,
 				558B3E8B1836230E00238312 /* Foundation.framework in Frameworks */,
+				675B5739C6C547A08F56C825 /* libPods-ThresholdsTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +91,7 @@
 				558B3E8F1836230E00238312 /* ThresholdsTests */,
 				558B3E6F1836230E00238312 /* Frameworks */,
 				558B3E6E1836230E00238312 /* Products */,
+				8584A40AE8A541978BB51BBA /* Pods-ThresholdsTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +111,7 @@
 				558B3E721836230E00238312 /* CoreGraphics.framework */,
 				558B3E741836230E00238312 /* UIKit.framework */,
 				558B3E891836230E00238312 /* XCTest.framework */,
+				2C87074B99194F179C58D9A0 /* libPods-ThresholdsTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,6 +119,10 @@
 		558B3E761836230E00238312 /* Thresholds */ = {
 			isa = PBXGroup;
 			children = (
+				558B3E9F1836268000238312 /* SRGThreshold.h */,
+				558B3EA01836268000238312 /* SRGThreshold.m */,
+				558B3EA11836268000238312 /* SRGThresholdRule.h */,
+				558B3EA21836268000238312 /* SRGThresholdRule.m */,
 				558B3E7F1836230E00238312 /* SRGAppDelegate.h */,
 				558B3E801836230E00238312 /* SRGAppDelegate.m */,
 				558B3E821836230E00238312 /* Images.xcassets */,
@@ -129,8 +145,8 @@
 		558B3E8F1836230E00238312 /* ThresholdsTests */ = {
 			isa = PBXGroup;
 			children = (
-				558B3E951836230E00238312 /* ThresholdsTests.m */,
 				558B3E901836230E00238312 /* Supporting Files */,
+				558B3EAB1836281200238312 /* SRGThresholdsTests.m */,
 			);
 			path = ThresholdsTests;
 			sourceTree = "<group>";
@@ -168,9 +184,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 558B3E9C1836230E00238312 /* Build configuration list for PBXNativeTarget "ThresholdsTests" */;
 			buildPhases = (
+				9DCF3EB595784214B1BE5F1C /* Check Pods Manifest.lock */,
 				558B3E841836230E00238312 /* Sources */,
 				558B3E851836230E00238312 /* Frameworks */,
 				558B3E861836230E00238312 /* Resources */,
+				EA91887D604F4B3B8040CE83 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -235,6 +253,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9DCF3EB595784214B1BE5F1C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EA91887D604F4B3B8040CE83 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-ThresholdsTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		558B3E691836230E00238312 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -242,6 +293,8 @@
 			files = (
 				558B3E7D1836230E00238312 /* main.m in Sources */,
 				558B3E811836230E00238312 /* SRGAppDelegate.m in Sources */,
+				558B3EA41836268000238312 /* SRGThresholdRule.m in Sources */,
+				558B3EA31836268000238312 /* SRGThreshold.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,7 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				558B3E961836230E00238312 /* ThresholdsTests.m in Sources */,
+				558B3EAC1836281200238312 /* SRGThresholdsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +436,7 @@
 		};
 		558B3E9D1836230E00238312 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8584A40AE8A541978BB51BBA /* Pods-ThresholdsTests.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Thresholds.app/Thresholds";
@@ -406,6 +460,7 @@
 		};
 		558B3E9E1836230E00238312 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8584A40AE8A541978BB51BBA /* Pods-ThresholdsTests.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Thresholds.app/Thresholds";
@@ -442,6 +497,7 @@
 				558B3E9B1836230E00238312 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		558B3E9C1836230E00238312 /* Build configuration list for PBXNativeTarget "ThresholdsTests" */ = {
 			isa = XCConfigurationList;
@@ -450,6 +506,7 @@
 				558B3E9E1836230E00238312 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
