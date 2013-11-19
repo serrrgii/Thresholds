@@ -119,8 +119,31 @@ describe(@"A treshold", ^{
                         [[error should] beNil];
                     });
                 });
+                
+                context(@"and it has reached its limit", ^{
+                    it(@"should not succeed", ^{
+                        
+                        [threshold addCounter:&error];
+                        [threshold addCounter:&error];
+                        [threshold addCounter:&error];
+                        
+                        [[error should] beNonNil];
+                    });
+                });
             });
             
+            context(@"when reaching its limit", ^{
+                __block BOOL reached = NO;
+                beforeAll(^{
+                    threshold = [SRGThreshold thresholdWithName:SpecThresholdName
+                                               requiredCounters:limit
+                                                      startDate:startDate
+                                                        endDate:endDate];
+                    [threshold setDidReachLimitHandler:^(SRGThreshold *treshold) {
+                        reached = YES;
+                    }];
+                });
+            });
         });
     });
 });

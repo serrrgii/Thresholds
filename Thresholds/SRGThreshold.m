@@ -69,6 +69,16 @@
     if (!validationError)
     {
         self.counters = [NSNumber numberWithUnsignedInt:self.counters.unsignedIntValue+1];
+        
+        [[SRGThresholdLimitRule new] validateThreshold:self
+                                          success:^{
+                                            
+                                          } failure:^(NSError *error) {
+                                              if (self.onDidReachLimit)
+                                              {
+                                                  self.onDidReachLimit(self);
+                                              }
+                                          }];
         result = YES;
     }
     

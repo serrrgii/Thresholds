@@ -20,5 +20,4 @@
 + (instancetype) thresholdWithName:(NSString *)name requiredCounters:(NSNumber *)times startDate:(NSDate *)startDate endDate:(NSDate *)endDate;
 - (void)setDidReachLimitHandler:(void(^)(SRGThreshold *treshold))onDidReachLimit;
 - (BOOL)addCounter:(NSError **)anError;
-
 @end

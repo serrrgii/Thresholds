@@ -8,25 +8,7 @@
 
 #import "SRGThresholdRule.h"
 #import "SRGThreshold.h"
-
-@implementation SRGThresholdRule
-- (NSError *)generateErrorWithDescription:(NSString *)description recoverySuggestion:(NSString *)suggestion code:(SRGThresholdRuleErrorCodes)code
-{
-    NSArray *recoveryOptions = @[NSLocalizedString(@"Ok", @"Title of button inside alert.")];
-    
-    NSDictionary *errorUserInfo = @{
-                                    NSLocalizedDescriptionKey : description,
-                                    NSLocalizedRecoverySuggestionErrorKey : suggestion,
-                                    NSLocalizedRecoveryOptionsErrorKey :recoveryOptions
-                                    };
-    
-    NSString *errorDomain = [NSBundle mainBundle].bundleIdentifier;
-    
-    return [NSError errorWithDomain:errorDomain
-                                         code:code
-                                     userInfo:errorUserInfo];
-}
-@end
+#import "NSObject+Errors.h"
 
 @implementation SRGThresholdLimitRule
 - (void)validateThreshold:(SRGThreshold *)threshold success:(void (^)())onSuccess failure:(void (^)(NSError *))onFailure
