@@ -10,6 +10,12 @@
 #import "SRGThreshold.h"
 #import "NSObject+Errors.h"
 
+@implementation SRGThresholdRule
+- (void)validateThreshold:(SRGThreshold *)threshold success:(void (^)())onSuccess failure:(void (^)(NSError *))onFailure
+{
+    //empty implementation
+}
+@end
 @implementation SRGThresholdLimitRule
 - (void)validateThreshold:(SRGThreshold *)threshold success:(void (^)())onSuccess failure:(void (^)(NSError *))onFailure
 {
