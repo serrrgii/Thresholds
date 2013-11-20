@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "SRGArchiveObject.h"
 
+@class SRGThreshold;
+
 typedef NS_ENUM(NSUInteger, SRGThresholdContextErrorCodes) {
-    SRGThresholdContextExistsErrorCode
+    SRGThresholdContextExistsErrorCode,
+    SRGThresholdExistsInContext
 };
 
 @interface SRGThresholdContext : SRGArchiveObject
+@property (readonly, strong, nonatomic) NSDictionary *thresholds;
 + (instancetype)contextWithStringIdentifier:(NSString *)identifier failure:(NSError **)error;
+- (BOOL)addThreshold:(SRGThreshold *)threshold failure:(NSError **)error;
 @end

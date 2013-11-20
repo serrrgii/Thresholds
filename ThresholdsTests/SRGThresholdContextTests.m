@@ -25,6 +25,7 @@ describe(@"Threshold contexts", ^{
         __block NSError *error;
         beforeAll(^{
             thresholdContext = [SRGThresholdContext contextWithStringIdentifier:ContextIdentifier failure:&error];
+            [thresholdContext archive];
         });
         it(@"created an instance of the context", ^{
             [[thresholdContext should] beNonNil];
@@ -39,11 +40,12 @@ describe(@"Threshold contexts", ^{
         afterAll(^{
             
         });
-        context(@"and after initializing another instance", ^{
-            context(@"using a different identifier", ^{
+        context(@"and initializing another instance", ^{
+            context(@"when using a different identifier", ^{
                 beforeAll(^{
                     thresholdContext = [SRGThresholdContext contextWithStringIdentifier:SecondContextIdentifier
                                                                                 failure:&error];
+                    [thresholdContext archive];
                 });
                 it(@"should create a context instance", ^{
                     [[thresholdContext should] beNonNil];
@@ -54,6 +56,28 @@ describe(@"Threshold contexts", ^{
                 it(@"generated no error", ^{
                     [[error should] beNil];
                 });
+            });
+            context(@"when reusing an identifier", ^{
+                beforeAll(^{
+                    thresholdContext = [SRGThresholdContext contextWithStringIdentifier:ContextIdentifier
+                                                                                failure:&error];
+                });
+                it(@"does not create an instance of the context", ^{
+                    [[thresholdContext should] beNil];
+                });
+                it(@"should return an error", ^{
+                    [[error should] beNonNil];
+                });
+            });
+        });
+        context(@"When adding a threshold", ^{
+            beforeAll(^{
+                error = nil;
+                thresholdContext = [SRGThresholdContext contextWithStringIdentifier:SecondContextIdentifier
+                                                                            failure:&error];
+            });
+            it(@"should let us add it", ^{
+                [[thresholdContext should] respondToSelector:@selector(addThreshold:failure:)];
             });
         });
     });
