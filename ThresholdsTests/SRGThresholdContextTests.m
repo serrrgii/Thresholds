@@ -8,11 +8,14 @@
 
 #import "Kiwi.h"
 #import "SRGThresholdContext.h"
+#import "SRGThreshold.h"
+#import "NSDate+SRGMethods.h"
 
 SPEC_BEGIN(ThresholdContextSpec)
 
 static NSString *const ContextIdentifier = @"com.srg.gyg.myidentifier";
 static NSString *const SecondContextIdentifier = @"com.srg.gyg.myidentifier2";
+static NSString *const ThresholdIdentifier = @"mythreshold";
 
 describe(@"Threshold contexts", ^{
     __block SRGThresholdContext *thresholdContext;
@@ -24,6 +27,10 @@ describe(@"Threshold contexts", ^{
     context(@"after initializing", ^{
         __block NSError *error;
         beforeAll(^{
+           
+            NSString *domainName = [NSBundle mainBundle].bundleIdentifier;
+            [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domainName];
+            
             thresholdContext = [SRGThresholdContext contextWithStringIdentifier:ContextIdentifier failure:&error];
             [thresholdContext archive];
         });
@@ -45,7 +52,6 @@ describe(@"Threshold contexts", ^{
                 beforeAll(^{
                     thresholdContext = [SRGThresholdContext contextWithStringIdentifier:SecondContextIdentifier
                                                                                 failure:&error];
-                    [thresholdContext archive];
                 });
                 it(@"should create a context instance", ^{
                     [[thresholdContext should] beNonNil];
@@ -70,7 +76,7 @@ describe(@"Threshold contexts", ^{
                 });
             });
         });
-        context(@"When adding a threshold", ^{
+        context(@"when adding a threshold", ^{
             beforeAll(^{
                 error = nil;
                 thresholdContext = [SRGThresholdContext contextWithStringIdentifier:SecondContextIdentifier
@@ -78,6 +84,32 @@ describe(@"Threshold contexts", ^{
             });
             it(@"should let us add it", ^{
                 [[thresholdContext should] respondToSelector:@selector(addThreshold:failure:)];
+            });
+            context(@"after adding a threshold", ^{
+                __block SRGThreshold *threshold;
+                context(@"using a new identifier", ^{
+                    beforeAll(^{
+                        threshold = [SRGThreshold thresholdWithStringIdentifier:ThresholdIdentifier
+                                                               requiredCounters:@3
+                                                                      startDate:[[NSDate date] dateByAddingDays:-1]
+                                                                        endDate:[[NSDate date] dateByAddingDays:1]];
+                        [thresholdContext addThreshold:threshold
+                                               failure:&error];
+                    });
+                    it(@"should not set an error", ^{
+                        [[error should] beNil];
+                    });
+                    it(@"should contain one threshold", ^{
+                        
+                        [[thresholdContext.thresholds should] haveCountOf:1];
+                    });
+                    
+                    it(@"should contain the added threshold", ^{
+                        
+                        [[[thresholdContext.thresholds objectForKey:threshold.identifier] should] beNonNil];
+                    });
+                });
+                
             });
         });
     });

@@ -10,6 +10,7 @@
 		55024AB1183B6CBD00172932 /* SRGThresholdContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 55024AB0183B6CBD00172932 /* SRGThresholdContext.m */; };
 		55024AB4183B709500172932 /* NSObject+Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 55024AB3183B709500172932 /* NSObject+Errors.m */; };
 		55024AB7183B73AD00172932 /* SRGArchiveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55024AB6183B73AD00172932 /* SRGArchiveObject.m */; };
+		5518D109183CC444003CF21E /* NSDate+SRGMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 5518D108183CC444003CF21E /* NSDate+SRGMethods.m */; };
 		5523A06C183A680500060962 /* SRGThresholdContextTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5523A06B183A680500060962 /* SRGThresholdContextTests.m */; };
 		558B3E711836230E00238312 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558B3E701836230E00238312 /* Foundation.framework */; };
 		558B3E731836230E00238312 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 558B3E721836230E00238312 /* CoreGraphics.framework */; };
@@ -46,6 +47,8 @@
 		55024AB3183B709500172932 /* NSObject+Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Errors.m"; sourceTree = "<group>"; };
 		55024AB5183B73AD00172932 /* SRGArchiveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGArchiveObject.h; sourceTree = "<group>"; };
 		55024AB6183B73AD00172932 /* SRGArchiveObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGArchiveObject.m; sourceTree = "<group>"; };
+		5518D107183CC444003CF21E /* NSDate+SRGMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+SRGMethods.h"; sourceTree = "<group>"; };
+		5518D108183CC444003CF21E /* NSDate+SRGMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+SRGMethods.m"; sourceTree = "<group>"; };
 		5523A06B183A680500060962 /* SRGThresholdContextTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGThresholdContextTests.m; sourceTree = "<group>"; };
 		558B3E6D1836230E00238312 /* Thresholds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Thresholds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		558B3E701836230E00238312 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -130,6 +133,8 @@
 		558B3E761836230E00238312 /* Thresholds */ = {
 			isa = PBXGroup;
 			children = (
+				5518D107183CC444003CF21E /* NSDate+SRGMethods.h */,
+				5518D108183CC444003CF21E /* NSDate+SRGMethods.m */,
 				55024AB2183B709500172932 /* NSObject+Errors.h */,
 				55024AB3183B709500172932 /* NSObject+Errors.m */,
 				558B3E9F1836268000238312 /* SRGThreshold.h */,
@@ -309,6 +314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5518D109183CC444003CF21E /* NSDate+SRGMethods.m in Sources */,
 				55024AB4183B709500172932 /* NSObject+Errors.m in Sources */,
 				558B3E7D1836230E00238312 /* main.m in Sources */,
 				558B3E811836230E00238312 /* SRGAppDelegate.m in Sources */,

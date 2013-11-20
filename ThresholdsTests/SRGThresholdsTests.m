@@ -27,7 +27,7 @@ describe(@"A treshold", ^{
         limit = [NSNumber numberWithUnsignedInteger:3];
         startDate = [NSDate date];
         endDate = [startDate dateByAddingTimeInterval:60*60*24*2];
-        threshold = [SRGThreshold thresholdWithName:SpecThresholdName
+        threshold = [SRGThreshold thresholdWithStringIdentifier:SpecThresholdName
                                    requiredCounters:limit
                                           startDate:startDate
                                             endDate:endDate];
@@ -36,7 +36,7 @@ describe(@"A treshold", ^{
             [[threshold.requiredCounters should] beIdenticalTo:limit];
         });
         it(@"has the correct name", ^{
-            [[threshold.name should] beIdenticalTo:SpecThresholdName];
+            [[threshold.identifier should] beIdenticalTo:SpecThresholdName];
         });
         it(@"has the correct start date", ^{
             [[threshold.startDate should] beIdenticalTo:startDate];
@@ -83,7 +83,7 @@ describe(@"A treshold", ^{
                    {
                        startDate = [[NSDate date] dateByAddingTimeInterval:60*60*24*1];
                        endDate = [[NSDate date] dateByAddingTimeInterval:60*60*24*2];
-                       threshold = [SRGThreshold thresholdWithName:SpecThresholdName
+                       threshold = [SRGThreshold thresholdWithStringIdentifier:SpecThresholdName
                                                   requiredCounters:[NSNumber numberWithInt:3]
                                                          startDate:startDate
                                                            endDate:endDate];
@@ -96,7 +96,7 @@ describe(@"A treshold", ^{
                 it(@"should fail", ^{
                     startDate = [[NSDate date] dateByAddingTimeInterval:-60*60*24*2];
                     endDate = [[NSDate date] dateByAddingTimeInterval:-60*60*24*1];
-                    threshold = [SRGThreshold thresholdWithName:SpecThresholdName
+                    threshold = [SRGThreshold thresholdWithStringIdentifier:SpecThresholdName
                                                requiredCounters:[NSNumber numberWithInt:3]
                                                       startDate:startDate
                                                         endDate:endDate];
@@ -111,7 +111,7 @@ describe(@"A treshold", ^{
                     it(@"should succeed", ^{
                         startDate = [[NSDate date] dateByAddingTimeInterval:-60*60*24*2];
                         endDate = [[NSDate date] dateByAddingTimeInterval:60*60*24*1];
-                        threshold = [SRGThreshold thresholdWithName:SpecThresholdName
+                        threshold = [SRGThreshold thresholdWithStringIdentifier:SpecThresholdName
                                                    requiredCounters:[NSNumber numberWithInt:3]
                                                           startDate:startDate
                                                             endDate:endDate];
@@ -135,7 +135,7 @@ describe(@"A treshold", ^{
             context(@"when reaching its limit", ^{
                 __block BOOL reached = NO;
                 beforeAll(^{
-                    threshold = [SRGThreshold thresholdWithName:SpecThresholdName
+                    threshold = [SRGThreshold thresholdWithStringIdentifier:SpecThresholdName
                                                requiredCounters:limit
                                                       startDate:startDate
                                                         endDate:endDate];

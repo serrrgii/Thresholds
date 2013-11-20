@@ -11,8 +11,8 @@
 #import "SRGThreshold.h"
 
 @interface SRGThresholdContext()<NSCoding>
-@property (readwrite, strong, nonatomic) NSDictionary *thresholds;
 @property (readwrite, strong, nonatomic) NSString *identifier;
+@property (readwrite, strong, nonatomic) NSMutableDictionary *mutableThresholds;
 @end
 @implementation SRGThresholdContext
 
@@ -31,24 +31,26 @@
 }
 - (BOOL)addThreshold:(SRGThreshold *)threshold failure:(NSError *__autoreleasing *)error
 {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _thresholds = [NSDictionary dictionary];
-    });
-    if ([_thresholds objectForKey:threshold.name]) {
+    
+    if (self.mutableThresholds == nil)
+    {
+        self.mutableThresholds = [NSMutableDictionary dictionary];
+    }
+    
+    if ([self.mutableThresholds objectForKey:threshold.identifier]) {
         *error = [self generateErrorWithDescription:NSLocalizedString(@"Threshold exists", nil)
                                  recoverySuggestion:NSLocalizedString(@"Add a threshold with a diferent name", nil)
                                                code:SRGThresholdExistsInContext];
         return NO;
     }
-    NSMutableDictionary *mutableThresholds = (NSMutableDictionary *)_thresholds;
-    [mutableThresholds setObject:threshold
-                          forKey:threshold.name];
+    
+    [self.mutableThresholds setObject:threshold
+                               forKey:threshold.identifier];
     return YES;
 }
 - (NSDictionary *)thresholds
 {
-    return [_thresholds copy];
+    return [self.mutableThresholds copy];
 }
 #pragma mark - NSCoding
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -57,6 +59,7 @@
     if (self)
     {
         self.identifier = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
+        self.mutableThresholds = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(thresholds))];
     }
     return self;
 }
@@ -64,5 +67,7 @@
 {
     [aCoder encodeObject:self.identifier
                   forKey:NSStringFromSelector(@selector(identifier))];
+    [aCoder encodeObject:self.thresholds
+                  forKey:NSStringFromSelector(@selector(thresholds))];
 }
 @end
