@@ -13,6 +13,7 @@
 @interface SRGThresholdContext()<NSCoding>
 @property (readwrite, strong, nonatomic) NSString *identifier;
 @property (readwrite, strong, nonatomic) NSMutableDictionary *mutableThresholds;
+@property (readwrite, strong, nonatomic) void(^onDidReachLimit)(SRGThresholdContext *);
 @end
 @implementation SRGThresholdContext
 
@@ -29,9 +30,9 @@
     
     return [self archiveObjectWithStringIdentifier:identifier];
 }
+
 - (BOOL)addThreshold:(SRGThreshold *)threshold failure:(NSError *__autoreleasing *)error
 {
-    
     if (self.mutableThresholds == nil)
     {
         self.mutableThresholds = [NSMutableDictionary dictionary];
@@ -46,7 +47,45 @@
     
     [self.mutableThresholds setObject:threshold
                                forKey:threshold.identifier];
+    
+    [threshold setDidReachLimitHandler:^(SRGThreshold *treshold) {
+        
+        if ([self reachedAllThresholds] && self.onDidReachLimit) {
+            
+            self.onDidReachLimit(self);
+        };
+    }];
+    
     return YES;
+}
+- (BOOL)addCounterWithThresholdIdentifier:(NSString *)identifier failure:(NSError *__autoreleasing *)error
+{
+    SRGThreshold *threshold = [self.thresholds objectForKey:identifier];
+    
+    if (threshold == nil)
+    {
+        *error = [self generateErrorWithDescription:NSLocalizedString(@"Error adding counter", nil)
+                                 recoverySuggestion:NSLocalizedString(@"This context does not contain a threshold with the provided identifier", nil)
+                                               code:SRGThresholdNotFound];
+        return NO;
+    }
+    
+    return [threshold addCounter:error];
+
+}
+- (void)setDidReachLimitHandler:(void (^)(SRGThresholdContext *))onDidReachLimit
+{
+    self.onDidReachLimit = onDidReachLimit;
+}
+- (BOOL)reachedAllThresholds
+{
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        SRGThreshold *each = (SRGThreshold *)evaluatedObject;
+        return each.requiredCounters.unsignedIntegerValue == each.counters.unsignedIntegerValue;
+    }];
+    NSArray *reachedThresholds = [self.mutableThresholds.allValues filteredArrayUsingPredicate:predicate];
+    
+    return reachedThresholds.count == self.thresholds.count;
 }
 - (NSDictionary *)thresholds
 {

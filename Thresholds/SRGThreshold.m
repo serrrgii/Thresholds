@@ -31,7 +31,6 @@
     }
     return self;
 }
-
 + (instancetype)thresholdWithStringIdentifier:(NSString *)name requiredCounters:(NSNumber *)requiredCounters startDate:(NSDate *)startDate endDate:(NSDate *)endDate
 {
     return [[self alloc] initWithName:name

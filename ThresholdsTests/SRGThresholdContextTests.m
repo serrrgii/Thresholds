@@ -16,6 +16,7 @@ SPEC_BEGIN(ThresholdContextSpec)
 static NSString *const ContextIdentifier = @"com.srg.gyg.myidentifier";
 static NSString *const SecondContextIdentifier = @"com.srg.gyg.myidentifier2";
 static NSString *const ThresholdIdentifier = @"mythreshold";
+static NSString *const SecondThresholdIdentifier = @"mysecondthreshold";
 
 describe(@"Threshold contexts", ^{
     __block SRGThresholdContext *thresholdContext;
@@ -77,6 +78,10 @@ describe(@"Threshold contexts", ^{
             });
         });
         context(@"when adding a threshold", ^{
+            
+            NSDate *startDate = [[NSDate date] dateByAddingDays:-1];
+            NSDate *endDate = [[NSDate date] dateByAddingDays:1];
+            
             beforeAll(^{
                 error = nil;
                 thresholdContext = [SRGThresholdContext contextWithStringIdentifier:SecondContextIdentifier
@@ -85,14 +90,14 @@ describe(@"Threshold contexts", ^{
             it(@"should let us add it", ^{
                 [[thresholdContext should] respondToSelector:@selector(addThreshold:failure:)];
             });
-            context(@"after adding a threshold", ^{
+            context(@"when adding a threshold", ^{
                 __block SRGThreshold *threshold;
-                context(@"using a new identifier", ^{
+                context(@"when using a new identifier", ^{
                     beforeAll(^{
                         threshold = [SRGThreshold thresholdWithStringIdentifier:ThresholdIdentifier
                                                                requiredCounters:@3
-                                                                      startDate:[[NSDate date] dateByAddingDays:-1]
-                                                                        endDate:[[NSDate date] dateByAddingDays:1]];
+                                                                      startDate:startDate
+                                                                        endDate:endDate];
                         [thresholdContext addThreshold:threshold
                                                failure:&error];
                     });
@@ -108,7 +113,50 @@ describe(@"Threshold contexts", ^{
                         
                         [[[thresholdContext.thresholds objectForKey:threshold.identifier] should] beNonNil];
                     });
+                    
                 });
+                context(@"when adding a second threshold", ^{
+                    context(@"reusing an identifier", ^{
+                        beforeAll(^{
+                            threshold = [SRGThreshold thresholdWithStringIdentifier:ThresholdIdentifier
+                                                                   requiredCounters:@3
+                                                                          startDate:startDate
+                                                                            endDate:endDate];
+                            [thresholdContext addThreshold:threshold
+                                                   failure:&error];
+                        });
+                        it(@"should not add the threshold", ^{
+                            [[[thresholdContext.thresholds objectForKey:threshold.identifier] shouldNot] equal:threshold];
+                        });
+                        it(@"should generate an error", ^{
+                            [[error should] beNonNil];
+                        });
+                    });
+                    context(@"with a new identifier", ^{
+                        beforeAll(^{
+                            error = nil;
+                            threshold = [SRGThreshold thresholdWithStringIdentifier:SecondThresholdIdentifier
+                                                                   requiredCounters:@3
+                                                                          startDate:startDate
+                                                                            endDate:endDate];
+                            [thresholdContext addThreshold:threshold
+                                                   failure:&error];
+                        });
+                        it(@"should not set an error", ^{
+                            [[error should] beNil];
+                        });
+                        it(@"should contain two thresholds", ^{
+                            
+                            [[thresholdContext.thresholds should] haveCountOf:2];
+                        });
+                        
+                        it(@"should contain the added threshold", ^{
+                            
+                            [[[thresholdContext.thresholds objectForKey:threshold.identifier] should] beNonNil];
+                        });
+                    });
+                });
+                
                 
             });
         });

@@ -13,11 +13,14 @@
 
 typedef NS_ENUM(NSUInteger, SRGThresholdContextErrorCodes) {
     SRGThresholdContextExistsErrorCode,
-    SRGThresholdExistsInContext
+    SRGThresholdExistsInContext,
+    SRGThresholdNotFound
 };
 
 @interface SRGThresholdContext : SRGArchiveObject
 @property (readonly, strong, nonatomic) NSDictionary *thresholds;
 - (BOOL)addThreshold:(SRGThreshold *)threshold failure:(NSError **)error;
 + (instancetype)contextWithStringIdentifier:(NSString *)identifier failure:(NSError **)error;
+- (void)setDidReachLimitHandler:(void(^)(SRGThresholdContext *context))onDidReachLimit;
+- (BOOL)addCounterWithThresholdIdentifier:(NSString *)identifier failure:(NSError **)error;
 @end
