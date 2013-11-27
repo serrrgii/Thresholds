@@ -17,6 +17,9 @@ static NSString *const ContextIdentifier = @"com.srg.gyg.myidentifier";
 static NSString *const SecondContextIdentifier = @"com.srg.gyg.myidentifier2";
 static NSString *const ThresholdIdentifier = @"mythreshold";
 static NSString *const SecondThresholdIdentifier = @"mysecondthreshold";
+static NSString *const ThirdThresholdIdenfifier = @"mythirdthreshold";
+static NSString *const FourthThresholdIdentifier = @"myfourththreshold";
+static NSString *const FifthThresholdIdentifer = @"myfifththreshold";
 
 describe(@"Threshold contexts", ^{
     __block SRGThresholdContext *thresholdContext;
@@ -142,9 +145,11 @@ describe(@"Threshold contexts", ^{
                             [thresholdContext addThreshold:threshold
                                                    failure:&error];
                         });
+                        
                         it(@"should not set an error", ^{
                             [[error should] beNil];
                         });
+                        
                         it(@"should contain two thresholds", ^{
                             
                             [[thresholdContext.thresholds should] haveCountOf:2];
@@ -156,8 +161,79 @@ describe(@"Threshold contexts", ^{
                         });
                     });
                 });
+            });
+            
+            context(@"when adding counters", ^{
+                context(@"to an existing threshold", ^{
+                    
+                    __block SRGThreshold *threshold;
+                    __block BOOL result = NO;
+                    __block NSError *error = nil;
+                    
+                    afterEach(^{
+                        result = YES;
+                        error = nil;
+                    });
+                    
+                    context(@"when the threshold has not reached its limit", ^{
+                        beforeAll(^{
+                            [thresholdContext addCounterWithThresholdIdentifier:ThresholdIdentifier                                                                        failure:&error];
+                            threshold = thresholdContext[ThresholdIdentifier];
+                        });
+                        it(@"should not generate an error.", ^{
+                            [[error should] beNil];
+                        });
+                        it(@"threshold counters should have increased", ^{
+                            [[threshold.counters should] equal:@1];
+                        });
+                    });
+                    
+                    context(@"when the threshold has reached its limit", ^{
+                        beforeAll(^{
+                            
+                            [thresholdContext addCounterWithThresholdIdentifier:ThresholdIdentifier failure:&error];
+                            [thresholdContext addCounterWithThresholdIdentifier:ThresholdIdentifier failure:&error];
+                            
+                            [thresholdContext addCounterWithThresholdIdentifier:ThresholdIdentifier failure:&error];
+                        });
+                       
+                        it(@"should generate an error.", ^{
+                            [[error should] beNonNil];
+                        });
+                        
+                        it(@"the threshold context counters should be equal to their limit", ^{
+                            [[threshold.counters should] equal:threshold.requiredCounters];
+                        });
+                    });
+                });
+            });
+            
+            context(@"when all counters reach their limits", ^{
+                __block BOOL reachedAll = NO;
+                beforeAll(^{
+                    error = nil;
+                    [thresholdContext addThreshold:[SRGThreshold thresholdWithStringIdentifier:ThirdThresholdIdenfifier
+                                                                              requiredCounters:@2
+                                                                                     startDate:startDate
+                                                                                       endDate:endDate]
+                                           failure:&error];
+                   
+                    [thresholdContext setDidReachLimitHandler:^(SRGThresholdContext *context) {
+                        reachedAll = YES;
+                    }];
+                    
+                    [thresholdContext addCounterWithThresholdIdentifier:SecondThresholdIdentifier failure:&error];
+                    [thresholdContext addCounterWithThresholdIdentifier:SecondThresholdIdentifier failure:&error];
+                    [thresholdContext addCounterWithThresholdIdentifier:SecondThresholdIdentifier failure:&error];
+                    [thresholdContext addCounterWithThresholdIdentifier:ThirdThresholdIdenfifier failure:&error];
+                    [thresholdContext addCounterWithThresholdIdentifier:ThirdThresholdIdenfifier failure:&error];
+                });
                 
-                
+                it(@"should call the reach limit handler", ^{
+                    
+                    [[theValue(reachedAll) should] equal:theValue(YES)];
+                    
+                });
             });
         });
     });

@@ -60,7 +60,7 @@
 }
 - (BOOL)addCounterWithThresholdIdentifier:(NSString *)identifier failure:(NSError *__autoreleasing *)error
 {
-    SRGThreshold *threshold = [self.thresholds objectForKey:identifier];
+    SRGThreshold *threshold = self[identifier];
     
     if (threshold == nil)
     {
@@ -71,7 +71,6 @@
     }
     
     return [threshold addCounter:error];
-
 }
 - (void)setDidReachLimitHandler:(void (^)(SRGThresholdContext *))onDidReachLimit
 {
@@ -108,5 +107,10 @@
                   forKey:NSStringFromSelector(@selector(identifier))];
     [aCoder encodeObject:self.thresholds
                   forKey:NSStringFromSelector(@selector(thresholds))];
+}
+#pragma mark - Keyed Subcripting
+- (id)objectForKeyedSubscript:(id<NSCopying>)key
+{
+    return [self.mutableThresholds objectForKey:key];
 }
 @end

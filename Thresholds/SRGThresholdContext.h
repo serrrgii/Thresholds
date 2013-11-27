@@ -23,4 +23,5 @@ typedef NS_ENUM(NSUInteger, SRGThresholdContextErrorCodes) {
 + (instancetype)contextWithStringIdentifier:(NSString *)identifier failure:(NSError **)error;
 - (void)setDidReachLimitHandler:(void(^)(SRGThresholdContext *context))onDidReachLimit;
 - (BOOL)addCounterWithThresholdIdentifier:(NSString *)identifier failure:(NSError **)error;
+- (id)objectForKeyedSubscript:(id <NSCopying>)key;
 @end
