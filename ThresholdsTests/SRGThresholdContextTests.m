@@ -240,15 +240,28 @@ describe(@"Threshold contexts", ^{
                 });
                 context(@"after archiving the context", ^{
                     __block SRGThresholdContext *unarchivedContext = nil;
+                    __block SRGThreshold *archivedChildThreshold = nil;
+                    __block SRGThreshold *unarchivedChildThreshold = nil;
                     beforeAll(^{
                         [thresholdContext archive];
                         unarchivedContext = (SRGThresholdContext *)[thresholdContext unarchive];
+                        archivedChildThreshold = thresholdContext[ThirdThresholdIdenfifier];
+                        unarchivedChildThreshold = unarchivedContext[ThirdThresholdIdenfifier];
                     });
                     it(@"should not be nil", ^{
                         [[unarchivedContext should] beNonNil];
                     });
-                    it(@"should have the correct number of contexts", ^{
+                    it(@"should have the correct number of thresholds", ^{
                         [[theValue(unarchivedContext.thresholds.count) should] equal:theValue(thresholdContext.thresholds.count)];
+                    });
+                    it(@"child threshold should not be nil", ^{
+                        [[unarchivedContext should] beNonNil];
+                    });
+                    it(@"child threshold should have the correct number of counters", ^{
+                        [[unarchivedChildThreshold.counters should] equal:archivedChildThreshold.counters];
+                    });
+                    it(@"child threshold should have the correct number of required counters", ^{
+                        [[unarchivedChildThreshold.requiredCounters should] equal:archivedChildThreshold.requiredCounters];
                     });
                 });
             });
