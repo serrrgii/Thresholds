@@ -235,6 +235,25 @@ describe(@"Threshold contexts", ^{
                     
                 });
             });
+            
+            context(@"when unarchiving the context", ^{
+                it(@"should publish an unarchiving method", ^{
+                    [[thresholdContext should] respondToSelector:@selector(unarchive)];
+                });
+                context(@"after archiving the context", ^{
+                    __block SRGThresholdContext *unarchivedContext = nil;
+                    beforeAll(^{
+                        [thresholdContext archive];
+                        unarchivedContext = (SRGThresholdContext *)[thresholdContext unarchive];
+                    });
+                    it(@"should not be nil", ^{
+                        [[unarchivedContext should] beNonNil];
+                    });
+                    it(@"should have the correct number of contexts", ^{
+                        [[theValue(unarchivedContext.thresholds.count) should] equal:theValue(thresholdContext.thresholds.count)];
+                    });
+                });
+            });
         });
     });
 });
