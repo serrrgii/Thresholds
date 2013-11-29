@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SRGArchiveObject : NSObject
+@interface SRGArchiveObject : NSObject<NSCoding>
 @property (readonly, strong, nonatomic) NSString *identifier;
 + (instancetype)archiveObjectWithStringIdentifier:(NSString *)identifier;
 + (instancetype)fetchWithStringIdentifier:(NSString *)identifier;

@@ -40,4 +40,19 @@
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:identifier];
     return [NSKeyedUnarchiver unarchiveObjectWithData:data];
 }
+#pragma mark - NSCoding
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self)
+    {
+        self.identifier = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
+    }
+    return self;
+}
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.identifier
+                  forKey:NSStringFromSelector(@selector(identifier))];
+}
 @end

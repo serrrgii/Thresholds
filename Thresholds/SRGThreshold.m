@@ -8,9 +8,9 @@
 
 #import "SRGThreshold.h"
 #import "SRGThresholdRule.h"
+#import "SRGArchiveObject+Protected.h"
 
-@interface SRGThreshold()<NSCoding>
-@property (readwrite, strong, nonatomic) NSString *identifier;
+@interface SRGThreshold()
 @property (readwrite, strong, nonatomic) NSNumber *requiredCounters;
 @property (readwrite, strong, nonatomic) NSNumber *counters;
 @property (readwrite, strong, nonatomic) NSDate *startDate;
@@ -21,9 +21,10 @@
 @implementation SRGThreshold
 - (id)initWithName:(NSString *)name requiredCounters:(NSNumber *)requiredCounters startDate:(NSDate *)startDate endDate:(NSDate *)endDate
 {
+    self = [super initWithStringIdentifier:name];
+    
     if (self)
     {
-        self.identifier = name;
         self.requiredCounters = requiredCounters;
         self.startDate = startDate;
         self.endDate = endDate;
@@ -86,10 +87,9 @@
 #pragma mark - NSCoding
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super init];
+    self = [super initWithCoder:aDecoder];
     if (self)
     {
-        self.identifier = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(name))];
         self.requiredCounters = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(requiredCounters))];
         self.counters = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(counters))];
         self.startDate = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(startDate))];
@@ -99,8 +99,8 @@
 }
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:self.identifier
-                  forKey:NSStringFromSelector(@selector(name))];
+    [super encodeWithCoder:aCoder];
+    
     [aCoder encodeObject:self.requiredCounters
                   forKey:NSStringFromSelector(@selector(requiredCounters))];
     [aCoder encodeObject:self.counters

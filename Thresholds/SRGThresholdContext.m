@@ -10,7 +10,7 @@
 #import "NSObject+Errors.h"
 #import "SRGThreshold.h"
 
-@interface SRGThresholdContext()<NSCoding>
+@interface SRGThresholdContext()
 @property (readwrite, strong, nonatomic) NSString *identifier;
 @property (readwrite, strong, nonatomic) NSMutableDictionary *mutableThresholds;
 @property (readwrite, strong, nonatomic) void(^onDidReachLimit)(SRGThresholdContext *);
@@ -93,18 +93,19 @@
 #pragma mark - NSCoding
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super init];
+    //hello my friend.
+    self = [super initWithCoder:aDecoder];
+    
     if (self)
     {
-        self.identifier = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(identifier))];
         self.mutableThresholds = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(thresholds))];
     }
     return self;
 }
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:self.identifier
-                  forKey:NSStringFromSelector(@selector(identifier))];
+    [super encodeWithCoder:aCoder];
+    
     [aCoder encodeObject:self.thresholds
                   forKey:NSStringFromSelector(@selector(thresholds))];
 }

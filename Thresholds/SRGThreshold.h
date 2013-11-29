@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SRGArchiveObject.h"
 
+@interface SRGThreshold : SRGArchiveObject
 
-@interface SRGThreshold : NSObject
-@property (readonly, strong, nonatomic) NSString *identifier;
 @property (readonly, strong, nonatomic) NSNumber *requiredCounters;
 @property (readonly, strong, nonatomic) NSNumber *counters;
 @property (readonly, strong, nonatomic) NSDate *startDate;
