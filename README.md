@@ -3,8 +3,8 @@
 [Thresholds](Thresholds/SRGThreshold.h) are configured with a number of required counters, a start date and an expiration date.
 
 ```objective-c
-static NSString *const SpecThresholdIdentifier = @"my_threshold";
-SRGThreshold *threshold = [SRGThreshold thresholdWithStringIdentifier:SpecThresholdIdentifier
+static NSString *const ThresholdIdentifier = @"my_threshold";
+SRGThreshold *threshold = [SRGThreshold thresholdWithStringIdentifier:ThresholdIdentifier
                                                      requiredCounters:@2
                                                             startDate:startDate
                                                               endDate:endDate];
@@ -48,5 +48,13 @@ if (!error)
 [thresholdContext archive];
 
 SRGThresholdContext *unarchivedContext = [thresholdContext unarchive];
+
+```
+
+[Thresholds](Thresholds/SRGThreshold.h) and [threshold contexts](Thresholds/SRGThresholdContext.h) can be fetched from the archive by identifier.
+
+```objective-c
+
+SRGThresholdContext *unarchivedContext = [SRGThresholdContext fetchWithStringIdentifier:ThresholdIdentifier];
 
 ```
