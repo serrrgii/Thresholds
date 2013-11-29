@@ -18,8 +18,6 @@ static NSString *const SecondContextIdentifier = @"com.srg.gyg.myidentifier2";
 static NSString *const ThresholdIdentifier = @"mythreshold";
 static NSString *const SecondThresholdIdentifier = @"mysecondthreshold";
 static NSString *const ThirdThresholdIdenfifier = @"mythirdthreshold";
-static NSString *const FourthThresholdIdentifier = @"myfourththreshold";
-static NSString *const FifthThresholdIdentifer = @"myfifththreshold";
 
 describe(@"Threshold contexts", ^{
     __block SRGThresholdContext *thresholdContext;
