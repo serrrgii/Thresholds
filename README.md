@@ -1,6 +1,6 @@
 [Thresholds](Thresholds/SRGThreshold.h) is a library designed for tracking and handling named events in iOS applications.
 
-[Threshold](Thresholds/SRGThreshold.h) are configured with a number of required counters, a start date and an expiration date.
+[Thresholds](Thresholds/SRGThreshold.h) are configured with a number of required counters, a start date and an expiration date.
 
 ```objective-c
 static NSString *const SpecThresholdIdentifier = @"my_threshold";
@@ -32,7 +32,7 @@ if (!error)
 {
   [thresholdContext addThreshold:threshold
                           failure:&error];
-  [thresholdContext addThreshold:threshold
+  [thresholdContext addThreshold:anotherThreshold
                           failure:&error];
                           
   [thresholdContext setDidReachLimitHandler:^(SRGThresholdContext *context) {
