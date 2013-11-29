@@ -34,11 +34,18 @@ if (!error)
                           failure:&error];
   [thresholdContext addThreshold:anotherThreshold
                           failure:&error];
-                          
-  [thresholdContext setDidReachLimitHandler:^(SRGThresholdContext *context) {
-    NSLog(@"reached limit of all context thresholds %@", context.identifier);
-  }];                 
 }
+```
+
+You can add counters to thresholds inside a context through their parent context.
+
+```objective-c
+[thresholdContext setDidReachLimitHandler:^(SRGThresholdContext *context) {
+    NSLog(@"reached limit of all context thresholds %@", context.identifier);
+}];
+
+[thresholdContext addCounterWithThresholdIdentifier:ThresholdIdentifier                                                                                             failure:&error];
+[thresholdContext addCounterWithThresholdIdentifier:AnotherThresholdIdentifier                                                                                      failure:&error];
 ```
 
 [Thresholds](Thresholds/SRGThreshold.h) and [threshold contexts](Thresholds/SRGThresholdContext.h) conform to the  [NSCoding](https://developer.apple.com/library/ios/#documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html) protocol and can be stored and retrieved from [NSUserDefaults](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/nsuserdefaults_Class/Reference/Reference.html). 
