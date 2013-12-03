@@ -38,6 +38,14 @@
     return [self archiveObjectWithStringIdentifier:identifier];
 }
 
+- (void)onThresholdDidReachLimit
+{
+    if ([self reachedAllThresholds] && self.onDidReachLimit) {
+        
+        self.onDidReachLimit(self);
+    };
+}
+
 - (BOOL)addThreshold:(SRGThreshold *)threshold failure:(NSError *__autoreleasing *)error
 {
     if ([self.mutableThresholds objectForKey:threshold.identifier]) {
@@ -52,14 +60,12 @@
     
     [threshold setDidReachLimitHandler:^(SRGThreshold *treshold) {
         
-        if ([self reachedAllThresholds] && self.onDidReachLimit) {
-            
-            self.onDidReachLimit(self);
-        };
+        [self onThresholdDidReachLimit];
     }];
     
     return YES;
 }
+
 - (BOOL)addCounterWithThresholdIdentifier:(NSString *)identifier failure:(NSError *__autoreleasing *)error
 {
     SRGThreshold *threshold = self[identifier];
@@ -74,10 +80,12 @@
     
     return [threshold addCounter:error];
 }
+
 - (void)setDidReachLimitHandler:(void (^)(SRGThresholdContext *))onDidReachLimit
 {
     self.onDidReachLimit = onDidReachLimit;
 }
+
 - (BOOL)reachedAllThresholds
 {
     NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
@@ -88,10 +96,12 @@
     
     return reachedThresholds.count == self.thresholds.count;
 }
+
 - (NSDictionary *)thresholds
 {
     return [self.mutableThresholds copy];
 }
+
 #pragma mark - NSCoding
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -111,6 +121,7 @@
     [aCoder encodeObject:self.thresholds
                   forKey:NSStringFromSelector(@selector(thresholds))];
 }
+
 #pragma mark - Keyed Subcripting
 - (id)objectForKeyedSubscript:(id<NSCopying>)key
 {
