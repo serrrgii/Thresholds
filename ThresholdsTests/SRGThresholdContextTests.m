@@ -33,7 +33,8 @@ describe(@"Threshold contexts", ^{
             NSString *domainName = [NSBundle mainBundle].bundleIdentifier;
             [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:domainName];
             
-            thresholdContext = [SRGThresholdContext contextWithStringIdentifier:ContextIdentifier failure:&error];
+            thresholdContext = [SRGThresholdContext contextWithStringIdentifier:ContextIdentifier
+                                                                        failure:&error];
             [thresholdContext archive];
         });
         it(@"created an instance of the context", ^{

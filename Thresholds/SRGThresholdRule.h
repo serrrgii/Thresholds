@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "SRGThresholdRuling.h"
 
 typedef NS_ENUM(NSUInteger, SRGThresholdRuleErrorCodes) {
     SRGThresholdLimitErrorCode,
@@ -15,19 +15,14 @@ typedef NS_ENUM(NSUInteger, SRGThresholdRuleErrorCodes) {
     SRGThresholdEndDateErrorCode
 };
 
-@class SRGThreshold;
-@interface SRGThresholdRule : NSObject
-- (void)validateThreshold:(SRGThreshold *)threshold success:(void(^)())onSuccess failure:(void(^)(NSError *error))onFailure;
-@end
-
-@interface SRGThresholdLimitRule : SRGThresholdRule
+@interface SRGThresholdLimitRule : NSObject<SRGThresholdRuling>
 
 @end
 
-@interface SRGThresholdStartDateRule : SRGThresholdRule
+@interface SRGThresholdStartDateRule : NSObject<SRGThresholdRuling>
 
 @end
 
-@interface SRGThresholdEndDateRule : SRGThresholdRule
+@interface SRGThresholdEndDateRule : NSObject<SRGThresholdRuling>
 
 @end

@@ -10,40 +10,32 @@
 #import "SRGThreshold.h"
 #import "NSObject+Errors.h"
 
-@implementation SRGThresholdRule
-- (void)validateThreshold:(SRGThreshold *)threshold success:(void (^)())onSuccess failure:(void (^)(NSError *))onFailure
-{
-    //empty implementation
-}
-@end
+
 @implementation SRGThresholdLimitRule
-- (void)validateThreshold:(SRGThreshold *)threshold success:(void (^)())onSuccess failure:(void (^)(NSError *))onFailure
+- (BOOL)validateThreshold:(SRGThreshold *)threshold error:(NSError *__autoreleasing *)error
 {
     NSString *errorDescription;
     NSString *errorRecoverySuggestion;
-    NSError *error;
     
     if (threshold.counters.unsignedIntegerValue == threshold.requiredCounters.unsignedIntegerValue)
     {
         errorDescription = NSLocalizedString(@"Bad threshold state", nil);
         errorRecoverySuggestion = NSLocalizedString(@"This threshold has already reached its limit", nil);
-        error = [self generateErrorWithDescription:errorDescription
+        *error = [self generateErrorWithDescription:errorDescription
                                 recoverySuggestion:errorRecoverySuggestion
                                               code:SRGThresholdLimitErrorCode];
-        onFailure(error);
-        return;
+        return NO;
     }
     
-    onSuccess();
+    return YES;
 }
 @end
 
 @implementation SRGThresholdStartDateRule
-- (void)validateThreshold:(SRGThreshold *)threshold success:(void (^)())onSuccess failure:(void (^)(NSError *))onFailure
+- (BOOL)validateThreshold:(SRGThreshold *)threshold error:(NSError *__autoreleasing *)error
 {
     NSString *errorDescription;
     NSString *errorRecoverySuggestion;
-    NSError *error;
     
     NSDate *now = [NSDate date];
     
@@ -52,40 +44,38 @@
     {
         errorDescription = NSLocalizedString(@"Bad date", nil);
         errorRecoverySuggestion = NSLocalizedString(@"Can't add a counter in a date before the start date of the threshold", nil);
-        error = [self generateErrorWithDescription:errorDescription
+        *error = [self generateErrorWithDescription:errorDescription
                                 recoverySuggestion:errorRecoverySuggestion
                                               code:SRGThresholdStartDateErrorCode];
-        onFailure(error);
-        return;
+        
+        return NO;
     }
     
-    onSuccess();
+    return YES;
 }
 @end
 
 @implementation SRGThresholdEndDateRule
-- (void)validateThreshold:(SRGThreshold *)threshold success:(void (^)())onSuccess failure:(void (^)(NSError *))onFailure
+- (BOOL)validateThreshold:(SRGThreshold *)threshold error:(NSError *__autoreleasing *)error
 {
     NSString *errorDescription;
     NSString *errorRecoverySuggestion;
-    NSError *error;
     
     NSDate *now = [NSDate date];
     
     if (threshold.endDate != nil &&
         [now compare:threshold.endDate] == NSOrderedDescending)
-
+        
     {
         errorDescription = NSLocalizedString(@"Bad date", nil);
         errorRecoverySuggestion = NSLocalizedString(@"Can't add a counter in a date after the end date of the threshold", nil);
-        error = [self generateErrorWithDescription:errorDescription
-                                recoverySuggestion:errorRecoverySuggestion
-                                              code:SRGThresholdEndDateErrorCode];
-        onFailure(error);
-        return;
+        *error = [self generateErrorWithDescription:errorDescription
+                                 recoverySuggestion:errorRecoverySuggestion
+                                               code:SRGThresholdEndDateErrorCode];
+        return NO;
     }
     
-    onSuccess();
+    return YES;
 }
 @end
 

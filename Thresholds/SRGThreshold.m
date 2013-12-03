@@ -9,6 +9,7 @@
 #import "SRGThreshold.h"
 #import "SRGThresholdRule.h"
 #import "SRGArchiveObject+Protected.h"
+#import "SRGThresholdRuling.h"
 
 @interface SRGThreshold()
 @property (readwrite, strong, nonatomic) NSNumber *requiredCounters;
@@ -18,6 +19,7 @@
 @property (readwrite, strong, nonatomic) void(^onDidReachLimit)(SRGThreshold *);
 @property (readwrite, strong, nonatomic) NSArray *rules;
 @end
+
 @implementation SRGThreshold
 - (id)initWithName:(NSString *)name requiredCounters:(NSNumber *)requiredCounters startDate:(NSDate *)startDate endDate:(NSDate *)endDate
 {
@@ -32,6 +34,7 @@
     }
     return self;
 }
+
 + (instancetype)thresholdWithStringIdentifier:(NSString *)name requiredCounters:(NSNumber *)requiredCounters startDate:(NSDate *)startDate endDate:(NSDate *)endDate
 {
     return [[self alloc] initWithName:name
@@ -39,29 +42,33 @@
                             startDate:startDate
                               endDate:endDate];
 }
+
 - (void)setupRules
 {
     self.rules = @[[SRGThresholdLimitRule new],
                    [SRGThresholdStartDateRule new],
                    [SRGThresholdEndDateRule new]];
 }
+
 - (void)setDidReachLimitHandler:(void (^)(SRGThreshold *))onDidReachLimit
 {
     self.onDidReachLimit = onDidReachLimit;
 }
+
 - (BOOL)addCounter:(NSError *__autoreleasing *)anError
 {
     BOOL result = NO;
-    __block NSError *validationError;
+    __block NSError *validationError = nil;
     
     [self.rules enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
         [obj validateThreshold:self
-                       success:^{
-                           
-                       } failure:^(NSError *error) {
-                           validationError = error;
-                           *stop = YES;
-                       }];
+                          error:&validationError];
+        
+        if (validationError)
+        {
+            *stop = YES;
+        }
     }];
     
     *anError = validationError;
@@ -69,21 +76,26 @@
     if (!validationError)
     {
         self.counters = [NSNumber numberWithUnsignedInt:self.counters.unsignedIntValue+1];
-        
-        [[SRGThresholdLimitRule new] validateThreshold:self
-                                          success:^{
-                                            
-                                          } failure:^(NSError *error) {
-                                              if (self.onDidReachLimit)
-                                              {
-                                                  self.onDidReachLimit(self);
-                                              }
-                                          }];
+        [self onCountersIncreased];
         result = YES;
     }
     
     return result;
 }
+
+- (void)onCountersIncreased
+{
+    NSError *error = nil;
+ 
+    [[SRGThresholdLimitRule new] validateThreshold:self
+                                             error:&error];
+    
+    if (error && self.onDidReachLimit)
+    {
+        self.onDidReachLimit(self);
+    }
+}
+
 #pragma mark - NSCoding
 - (id)initWithCoder:(NSCoder *)aDecoder
 {

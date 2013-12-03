@@ -71,6 +71,7 @@
 		558B3EA11836268000238312 /* SRGThresholdRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRGThresholdRule.h; sourceTree = "<group>"; };
 		558B3EA21836268000238312 /* SRGThresholdRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGThresholdRule.m; sourceTree = "<group>"; };
 		558B3EAB1836281200238312 /* SRGThresholdsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGThresholdsTests.m; sourceTree = "<group>"; };
+		55F4EE26184E039600F35596 /* SRGThresholdRuling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGThresholdRuling.h; sourceTree = "<group>"; };
 		55FC0A39184899B50096B94F /* SRGArchiveObject+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGArchiveObject+Protected.h"; sourceTree = "<group>"; };
 		55FC0A3A184899B50096B94F /* SRGArchiveObject+Protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGArchiveObject+Protected.m"; sourceTree = "<group>"; };
 		8584A40AE8A541978BB51BBA /* Pods-ThresholdsTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThresholdsTests.xcconfig"; path = "Pods/Pods-ThresholdsTests.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +137,7 @@
 		558B3E761836230E00238312 /* Thresholds */ = {
 			isa = PBXGroup;
 			children = (
+				55F4EE26184E039600F35596 /* SRGThresholdRuling.h */,
 				5518D107183CC444003CF21E /* NSDate+SRGMethods.h */,
 				5518D108183CC444003CF21E /* NSDate+SRGMethods.m */,
 				55024AB2183B709500172932 /* NSObject+Errors.h */,
