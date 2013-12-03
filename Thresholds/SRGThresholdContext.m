@@ -9,14 +9,21 @@
 #import "SRGThresholdContext.h"
 #import "NSObject+Errors.h"
 #import "SRGThreshold.h"
-
+#import "SRGArchiveObject+Protected.h"
 @interface SRGThresholdContext()
-@property (readwrite, strong, nonatomic) NSString *identifier;
 @property (readwrite, strong, nonatomic) NSMutableDictionary *mutableThresholds;
 @property (readwrite, strong, nonatomic) void(^onDidReachLimit)(SRGThresholdContext *);
 @end
 @implementation SRGThresholdContext
-
+- (id)initWithStringIdentifier:(NSString *)identifier
+{
+    self = [super initWithStringIdentifier:identifier];
+    if (self)
+    {
+        self.mutableThresholds = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
 + (instancetype)contextWithStringIdentifier:(NSString *)identifier failure:(NSError **)error
 {
     if ([self fetchWithStringIdentifier:identifier]) {
@@ -33,11 +40,6 @@
 
 - (BOOL)addThreshold:(SRGThreshold *)threshold failure:(NSError *__autoreleasing *)error
 {
-    if (self.mutableThresholds == nil)
-    {
-        self.mutableThresholds = [NSMutableDictionary dictionary];
-    }
-    
     if ([self.mutableThresholds objectForKey:threshold.identifier]) {
         *error = [self generateErrorWithDescription:NSLocalizedString(@"Threshold exists", nil)
                                  recoverySuggestion:NSLocalizedString(@"Add a threshold with a diferent name", nil)

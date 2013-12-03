@@ -26,7 +26,6 @@
 		558B3EA31836268000238312 /* SRGThreshold.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B3EA01836268000238312 /* SRGThreshold.m */; };
 		558B3EA41836268000238312 /* SRGThresholdRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B3EA21836268000238312 /* SRGThresholdRule.m */; };
 		558B3EAC1836281200238312 /* SRGThresholdsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B3EAB1836281200238312 /* SRGThresholdsTests.m */; };
-		55FC0A3B184899B50096B94F /* SRGArchiveObject+Protected.m in Sources */ = {isa = PBXBuildFile; fileRef = 55FC0A3A184899B50096B94F /* SRGArchiveObject+Protected.m */; };
 		675B5739C6C547A08F56C825 /* libPods-ThresholdsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C87074B99194F179C58D9A0 /* libPods-ThresholdsTests.a */; };
 /* End PBXBuildFile section */
 
@@ -73,7 +72,6 @@
 		558B3EAB1836281200238312 /* SRGThresholdsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRGThresholdsTests.m; sourceTree = "<group>"; };
 		55F4EE26184E039600F35596 /* SRGThresholdRuling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRGThresholdRuling.h; sourceTree = "<group>"; };
 		55FC0A39184899B50096B94F /* SRGArchiveObject+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SRGArchiveObject+Protected.h"; sourceTree = "<group>"; };
-		55FC0A3A184899B50096B94F /* SRGArchiveObject+Protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SRGArchiveObject+Protected.m"; sourceTree = "<group>"; };
 		8584A40AE8A541978BB51BBA /* Pods-ThresholdsTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThresholdsTests.xcconfig"; path = "Pods/Pods-ThresholdsTests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,7 +153,6 @@
 				55024AB5183B73AD00172932 /* SRGArchiveObject.h */,
 				55024AB6183B73AD00172932 /* SRGArchiveObject.m */,
 				55FC0A39184899B50096B94F /* SRGArchiveObject+Protected.h */,
-				55FC0A3A184899B50096B94F /* SRGArchiveObject+Protected.m */,
 			);
 			path = Thresholds;
 			sourceTree = "<group>";
@@ -328,7 +325,6 @@
 				558B3EA41836268000238312 /* SRGThresholdRule.m in Sources */,
 				55024AB1183B6CBD00172932 /* SRGThresholdContext.m in Sources */,
 				55024AB7183B73AD00172932 /* SRGArchiveObject.m in Sources */,
-				55FC0A3B184899B50096B94F /* SRGArchiveObject+Protected.m in Sources */,
 				558B3EA31836268000238312 /* SRGThreshold.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
